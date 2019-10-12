@@ -1,0 +1,41 @@
+<h1>TO-DO List</h1>
+
+{{#each dat}}
+<ul>
+<p>ID: {{this.id}}</p>
+<p>TODO: {{this.todo}}</p>
+</ul>
+{{/each}}
+
+<form id="createTodo">
+    <input type="text" name="todo" placeholder="Enter TODO">
+    <button type="submit">Submit</button>
+</form>
+
+<script type="text/javascript">
+
+$("#createTodo").on("submit", function(event){
+
+    event.preventDefault();
+
+    var newTodo = {
+
+        todo: $("#createTodo [name=todo]").val().trim()
+
+    };
+    //send post requtes
+    $.ajax("api/add-todo",{
+
+        type: "POST",
+        data: newTodo
+
+    }).then(function(){
+
+            console.log("Added Succesfully!")
+            location.reload();
+        }
+    );
+})
+
+
+</script>
